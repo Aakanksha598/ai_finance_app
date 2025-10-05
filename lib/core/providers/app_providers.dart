@@ -247,13 +247,16 @@ class AppStateProvider extends ChangeNotifier {
   bool get hasCompletedOnboarding => _hasCompletedOnboarding;
 
   Future<void> initialize() async {
-    _isOfflineMode =
-        DatabaseService.getSetting('isOfflineMode', defaultValue: false);
+    _isOfflineMode = DatabaseService.getSetting(
+      'isOfflineMode',
+      defaultValue: false,
+    );
     _isDarkMode = DatabaseService.getSetting('isDarkMode', defaultValue: false);
     _currency = DatabaseService.getSetting('currency', defaultValue: 'USD');
     _hasCompletedOnboarding = DatabaseService.getSetting(
-        'hasCompletedOnboarding',
-        defaultValue: false);
+      'hasCompletedOnboarding',
+      defaultValue: false,
+    );
     notifyListeners();
   }
 
@@ -282,14 +285,9 @@ class AppStateProvider extends ChangeNotifier {
   }
 }
 
-// ...existing provider classes...
-
 class AppProviders {
   static final List<SingleChildWidget> providers = [
-    ChangeNotifierProvider(create: (_) => TransactionProvider()),
-    ChangeNotifierProvider(create: (_) => BudgetProvider()),
-    ChangeNotifierProvider(create: (_) => GoalProvider()),
-    ChangeNotifierProvider(create: (_) => AppStateProvider()),
-    // Add more providers here if needed
+    // Example:
+    // ChangeNotifierProvider(create: (_) => SomeProvider()),
   ];
 }

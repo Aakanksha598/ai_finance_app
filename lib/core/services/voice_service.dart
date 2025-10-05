@@ -6,6 +6,7 @@ class VoiceService {
   static final SpeechToText _speechToText = SpeechToText();
   static final FlutterTts _flutterTts = FlutterTts();
   static bool _speechEnabled = false;
+  static bool _isSpeaking = false; // <-- Add this
 
   static Future<void> initialize() async {
     // Request microphone permission
@@ -29,6 +30,17 @@ class VoiceService {
     await _flutterTts.setSpeechRate(0.5);
     await _flutterTts.setVolume(1.0);
     await _flutterTts.setPitch(1.0);
+
+    // Add these handlers:
+    _flutterTts.setStartHandler(() {
+      _isSpeaking = true;
+    });
+    _flutterTts.setCompletionHandler(() {
+      _isSpeaking = false;
+    });
+    _flutterTts.setCancelHandler(() {
+      _isSpeaking = false;
+    });
   }
 
   // Start listening for speech
@@ -244,8 +256,5 @@ class VoiceService {
   // Check if currently listening
   static bool get isListening => _speechToText.isListening;
   // Check if currently speaking
-  static Future<bool> get isSpeaking async {
-    final result = await _flutterTts.isSpeaking;
-    return result == true;
-  }
+  static bool get isSpeaking => _isSpeaking;
 }

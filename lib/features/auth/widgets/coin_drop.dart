@@ -33,7 +33,7 @@ class _CoinDropState extends State<CoinDrop>
         .animate(_controller);
 
     _opacityAnim = TweenSequence<double>([
-      const TweenSequenceItem(tween: ConstantTween<double>(1.0), weight: 95),
+      TweenSequenceItem(tween: ConstantTween<double>(1.0), weight: 95),
       TweenSequenceItem(tween: Tween<double>(begin: 1.0, end: 0.0), weight: 5),
     ]).animate(_controller);
 

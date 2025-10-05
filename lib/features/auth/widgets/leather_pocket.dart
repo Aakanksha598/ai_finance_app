@@ -18,7 +18,7 @@ class LeatherPocket extends StatefulWidget {
 class _LeatherPocketState extends State<LeatherPocket> {
   @override
   Widget build(BuildContext context) {
-    final opacity = widget.fadeScaleProgress.clamp(0.0, 1.0);
+    final opacity = widget.fadeScaleProgress.value.clamp(0.0, 1.0);
     final scale = 0.9 + 0.1 * opacity; // 90% -> 100%
 
     return Opacity(
@@ -98,5 +98,3 @@ class _PocketBody extends StatelessWidget {
     );
   }
 }
-
-

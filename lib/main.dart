@@ -1,3 +1,4 @@
+import 'dart:io'; // Add this import
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -10,12 +11,13 @@ import 'core/services/firebase_service.dart';
 import 'core/services/notification_service.dart';
 import 'core/theme/app_theme.dart';
 import 'features/auth/screens/splash_screen.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize Firebase
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // Initialize Hive
   await Hive.initFlutter();
@@ -35,8 +37,10 @@ Future<void> _requestPermissions() async {
   await Permission.camera.request();
   await Permission.microphone.request();
   await Permission.location.request();
-  // Works only on permission_handler >= 10.2.0
-  await Permission.notification.request();
+  // Request notification permission only on Android/iOS
+  if (Platform.isAndroid || Platform.isIOS) {
+    await Permission.notification.request();
+  }
   await Permission.storage.request();
 }
 
@@ -46,7 +50,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: AppProviders.providers, // ✅ corrected
+      providers: AppProviders.providers,
       child: MaterialApp(
         title: 'Finance Tracker',
         debugShowCheckedModeBanner: false,

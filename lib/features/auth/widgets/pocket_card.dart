@@ -74,7 +74,7 @@ class _PocketCardState extends State<PocketCard>
 
     // opacity: [1, 1, 0]
     _opacityAnim = TweenSequence<double>([
-      const TweenSequenceItem(tween: ConstantTween<double>(1.0), weight: 70),
+      TweenSequenceItem(tween: ConstantTween<double>(1.0), weight: 70),
       TweenSequenceItem(
         tween: Tween<double>(begin: 1.0, end: 0.0),
         weight: 30,
